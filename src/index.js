@@ -1,7 +1,8 @@
 import "./styles.scss"
 import '@fortawesome/fontawesome-free/js/all.js'
 import 'bootstrap'
-import {pinExpanded, expandNav, unPinExpanded, hoverPopUp, destroyPopUp} from './modules/nav.js'
+import {pinExpanded, expandNav, unPinExpanded, hoverPopUp, destroyPopUp} from './modules/nav.js';
+import {populateInput, depopulateInput} from './modules/add.js';
 
 const navButton2 = document.getElementById('bars-T')
 const navButton = document.getElementById('bars');
@@ -23,3 +24,9 @@ calendar.addEventListener('mouseenter', function(){hoverPopUp(calendar)});
 calendar.addEventListener('mouseleave', destroyPopUp);
 add.addEventListener('mouseenter', function(){hoverPopUp(add)});
 add.addEventListener('mouseleave', destroyPopUp);
+const addTask = document.getElementById('add-task');
+addTask.addEventListener('click', populateInput);
+const secondoverLay = document.getElementById('secondoverLay');
+secondoverLay.addEventListener('click', depopulateInput);
+const taskCancel = document.getElementById('task-cancel');
+taskCancel.addEventListener('click', depopulateInput);

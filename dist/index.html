@@ -28,18 +28,31 @@
           <li class="inbox blue-text expanded-item">
             <i class="fa-solid fa-inbox"></i> <span class="item-text">Inbox</span> <span id="num-of-inbox"></span>
           </li>
-          <li class="add-task blue-text expanded-item">
+          <li class="blue-text expanded-item" id="add-task">
             <i class="fa-solid fa-plus"></i> <span class="item-text">Add Task</span> <span id="num-of-"></span>
           </li>
-          <li class="add-project blue-text expanded-item">
+          <li class="blue-text expanded-item" id="add-project">
             <i class="fa-solid fa-plus"></i> <span class="item-text">Add Project</span>
           </li>
       </ul>
     </nav>
     <div class="main">
       <div class="overLay d-none" id="overLay"></div>
+      <div id="content">
         <h2 class="title">Inbox</h2>
-
+        <div class="task">
+          <div class="circle"></div>
+          <p class="task-desc">Take out the trash </p>
+          <p class="task-date">4/6/22</p>
+        </div>
+      </div>
     </div>
+    <div id="task-input" class="d-none">
+      <div class="task-header">
+        <p class="active" id="task-cancel">Cancel</p>
+        <p class="blue-text" id="task-create">Create</p>
+      </div>
+    </div>
+    <div class="d-none" id="secondoverLay"></div>
   </body>
 </html>
