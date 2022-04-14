@@ -47,10 +47,24 @@
         </div>
       </div>
     </div>
-    <div id="task-input" class="d-none">
+    <div id="task-input" class="" style="opacity: 1;">
       <div class="task-header">
         <p class="active" id="task-cancel">Cancel</p>
         <p class="blue-text" id="task-create">Create</p>
+      </div>
+      <div class="task-body">
+        <textarea name="task-desc" id="task-desc" placeholder="What would you like to do today?"></textarea>
+      </div>
+      <div class="task-footer">
+        <div class="date-container">
+          <label for="task-due-date">Due-date: </label>
+          <input type="date" id="task-due-date" value="2022-04-20" min="2022-04-14">
+        </div>
+        <div class="project-container">
+          <i class="fa-solid fa-list-check"></i>
+          <p>Project</p>
+          <span id="project-selection">Inbox</span>
+        </div>
       </div>
     </div>
     <div class="d-none" id="secondoverLay"></div>
