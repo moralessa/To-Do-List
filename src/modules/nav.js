@@ -50,9 +50,6 @@ function hoverPopUp(param){
     popUp.classList.add('pop-up');
     param.appendChild(popUp);
     switch(param.id){
-        case 'search':
-            popUp.textContent = 'Search';
-            break;
         case 'inbox':
             popUp.textContent = 'Inbox';
             break;

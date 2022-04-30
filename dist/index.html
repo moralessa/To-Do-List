@@ -8,7 +8,6 @@
     <nav class="aside">
       <ul class="nav-links">
         <li class="nav-link" id="bars"><i class="fa-solid fa-bars"></i></li>
-        <li class="nav-link" id="search"><i class="fa-solid fa-magnifying-glass"></i></li>
         <li class="nav-link" id="inbox"><i class="fa-solid fa-inbox"></i></li>
         <li class="nav-link" id="week"><i class="fa-solid fa-calendar-check"></i></li>
         <li class="nav-link" id="add"><i class="fa-solid fa-plus"></i></li>
@@ -22,17 +21,13 @@
             <a href="#" class="icon d-none" id="unlock"><i class="fa-solid fa-lock-open"></i></a>
             <a href="#" class="icon " id="lock"><i class="fa-solid fa-lock"></i></a>
           </li>
-          <li class="search">
-            <input type="text" placeholder="Search" id="search-bar" name="search">
-          </li>
-          <li class="inbox blue-text expanded-item">
-            <i class="fa-solid fa-inbox"></i> <span class="item-text">Inbox</span> <span id="num-of-inbox"></span>
-          </li>
+          <div id="projects">
+            <li class="inbox blue-text expanded-item">
+              <i class="fa-solid fa-inbox"></i> <span class="item-text">Inbox</span> <span id="num-of-inbox"></span>
+            </li>
+          </div>
           <li class="blue-text expanded-item" id="add-task">
             <i class="fa-solid fa-plus"></i> <span class="item-text">Add Task</span> <span id="num-of-"></span>
-          </li>
-          <li class="blue-text expanded-item" id="add-project">
-            <i class="fa-solid fa-plus"></i> <span class="item-text">Add Project</span>
           </li>
       </ul>
     </nav>
@@ -47,7 +42,8 @@
         </div>
       </div>
     </div>
-    <div id="task-input" class="" style="opacity: 1;">
+
+    <div id="task-input" class="d-none">
       <div class="task-header">
         <p class="active" id="task-cancel">Cancel</p>
         <p class="blue-text" id="task-create">Create</p>
@@ -58,12 +54,11 @@
       <div class="task-footer">
         <div class="date-container">
           <label for="task-due-date">Due-date: </label>
-          <input type="date" id="task-due-date" value="2022-04-20" min="2022-04-14">
+          <input type="date" id="task-due-date" value="2022-04-30" min="2022-04-30">
         </div>
         <div class="project-container">
-          <i class="fa-solid fa-list-check"></i>
-          <p>Project</p>
-          <span id="project-selection">Inbox</span>
+          <label for="project-name">Project Name:</label>
+          <input type="text" placeholder="inbox default">
         </div>
       </div>
     </div>

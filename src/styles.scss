@@ -80,7 +80,7 @@ body{
                 background-color: rgb(226, 248, 255);
             }
 
-            &:hover#bars, &:hover#search, &:hover#add{
+            &:hover#bars, &:hover#add{
                 background-color: rgb(255, 255, 255);
             }
         }
@@ -127,26 +127,6 @@ body{
             .icon:hover{
                 cursor: pointer;
                 background-color: rgba(238, 235, 235, 0.849);
-            }
-        }
-        #search-bar{
-            margin: 1rem 0 0 5%;
-            width: 90%;
-            height: 30px;
-            border-radius: 15px;
-            border: none;
-            padding-left: 2rem;
-            background: url('./images/172546_search_icon.png') no-repeat 5% 50%;
-            background-size: 8%;
-            background-color: rgb(231, 231, 231);
-
-            &:focus{
-                outline: none;
-            }
-
-            &::placeholder{
-                font-size: .7rem;
-                color: black
             }
         }
 
@@ -354,9 +334,12 @@ body{
         .project-container{
             margin-top: .5rem;
             padding: .5rem 2rem;
+            display: flex;
             justify-content: flex-start;
-            align-items: center;
-            position: relative;
+
+            input{
+                width: 50%;
+            }
 
             &:hover{
                 cursor: pointer;
