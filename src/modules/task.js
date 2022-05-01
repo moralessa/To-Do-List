@@ -9,8 +9,12 @@ class Task {
 function createNewTask(id, desc, date, arr){
     let newTask = new Task(id, desc, date);
     arr.push(newTask);
-    return;
+    return newTask;
+}
+
+function removeTask(id, arr){
+    return arr.filter(task => task.id !== id);
 }
 
 
-export {Task, createNewTask}
+export {createNewTask, removeTask}

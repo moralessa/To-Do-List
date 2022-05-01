@@ -7,6 +7,12 @@ class Project {
 
 function createNewProject(name, arr){
     let newProject = new Project(name);
-    arr.push(neProject);
-    return;
+    arr.push(newProject);
+    return newProject;
 }
+
+function removeTaskFromProject(id){
+    
+}
+
+export {Project, createNewProject};

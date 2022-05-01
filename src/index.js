@@ -1,11 +1,18 @@
 import "./styles.scss"
 import '@fortawesome/fontawesome-free/js/all.js'
 import 'bootstrap'
-import {pinExpanded, expandNav, unPinExpanded, hoverPopUp, destroyPopUp} from './modules/nav.js';
+import {pinExpanded, expandNav, unPinExpanded, hoverPopUp, destroyPopUp, populateNavProjects} from './modules/nav.js';
 import {populateTaskInput, depopulateTaskInput, createButtonToggle} from './modules/add.js';
-import {Task, createNewTask} from './modules/task.js';
+import {createNewTask, removeTask} from './modules/task.js';
+import {createNewProject} from './modules/project.js'
+import {populateMain} from './modules/mainpopulation.js'
 
-
+(function(){
+    const date = new Date();
+    const dateInput = document.getElementById('task-due-date');
+    const v = date.toLocaleDateString('en-CA');
+    dateInput.value = v;
+})();
 //Array of tasks
 let tasksArr = [];
 //Array of projects
@@ -52,14 +59,72 @@ const taskDescInput = document.getElementById('task-desc');
 taskDescInput.addEventListener('keypress', createButtonToggle)
 
 
-//Add task  
+//Task Addition functionality
 function taskAddition(){
     if (!taskCreate.classList.contains('active')){
         return;
     }
-        
-    taskCount++;
     
-    createNewTask(taskCount, 'hello', 56, tasksArr);
+    //Increment task count for ID of task
+    taskCount++;
+    //Obtain task description, date, and project
+    const description = taskDescInput.value;   
+    const date = new Date(document.getElementById('task-due-date').value);
+    const dateFormatted = date.toLocaleDateString('en-US');
+    const project = document.getElementById('project-name').value;
+
+    //Call Respective functions to create task and add an aditional project if necessary
+    let newTask = createNewTask(taskCount, description, dateFormatted, tasksArr);
+    projectAddition(project, newTask);
+    setTimeout(() =>{
+        taskDescInput.value = '';
+        document.getElementById('project-name').value = '';
+    }, 1000)
+
+    //depopulate task card
+    depopulateTaskInput();
+
     console.log(tasksArr);
+    console.log(projectsArr);
+}
+
+//Project additon functionality
+function projectAddition(name, task){
+    if(name == ''){
+        name = 'Inbox';   
+    }
+    //Check if project exists if so add task to project and return
+    let ndx;
+    projectsArr.forEach((project, index) =>{
+        if(project.name ==  name){
+            ndx = index;
+            return ;
+        }
+    })
+    
+    if(ndx == undefined){
+        let newProject = createNewProject(name, projectsArr);
+        newProject.tasks.push(task);
+        populateNavProjects(projectsArr);
+        checkIfMainIsPopulized(newProject);
+    }else{
+        projectsArr[ndx].tasks.push(task);
+        populateNavProjects(projectsArr);
+        checkIfMainIsPopulized(projectsArr[ndx])
+    }
+
+    
+}
+
+
+//Check if Main content is populized with project that we are adding project onto
+//If so populate main so the user can see the newly added task
+function checkIfMainIsPopulized(target){
+    let temp = document.querySelector('.title');
+    if(temp == null){
+        return;
+    }
+    else if(temp.textContent === target.name){
+        populateMain(target);
+    }
 }

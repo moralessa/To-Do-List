@@ -1,3 +1,5 @@
+import {populateMain, depopulateMain} from './mainpopulation.js';
+
 function expandNav(){
     const main = document.querySelector('.main');
     const aside = document.querySelector('.aside');
@@ -71,4 +73,35 @@ function destroyPopUp(){
     }
 }
 
-export{expandNav, pinExpanded, unPinExpanded, hoverPopUp, destroyPopUp};
+function populateNavProjects(arr){
+    const projectsContainer = document.getElementById('projects');
+    arr.forEach(project => {;
+        let temp = document.getElementById(`project-${project.name}`);
+        if(projectsContainer.contains(temp)){
+            return;
+        }
+
+        let listItem = document.createElement('li');
+        listItem.setAttribute('id', `project-${project.name}`);
+        listItem.classList.add('blue-text', 'expanded-item');
+        let text = document.createElement('span');
+        text.textContent = `${project.name}`;
+        listItem.append(text);
+        addProjectEventListener(project, listItem);
+        projectsContainer.append(listItem);
+    })
+}
+
+function addProjectEventListener(target, element){
+    const contentContainer = document.getElementById('content');
+    if(contentContainer == null || contentContainer.contains(target.name)){
+        element.addEventListener('click', () => {populateMain(target)});
+    }else{
+        element.addEventListener('click', function(){
+            depopulateMain();
+            populateMain(target);
+        })
+    }
+}
+
+export{expandNav, pinExpanded, unPinExpanded, hoverPopUp, destroyPopUp, populateNavProjects};

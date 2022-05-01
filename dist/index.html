@@ -22,25 +22,27 @@
             <a href="#" class="icon " id="lock"><i class="fa-solid fa-lock"></i></a>
           </li>
           <div id="projects">
-            <li class="inbox blue-text expanded-item">
-              <i class="fa-solid fa-inbox"></i> <span class="item-text">Inbox</span> <span id="num-of-inbox"></span>
+            <li class="inbox blue-text expanded-item" id="project-Inbox">
+              <i class="fa-solid fa-inbox"></i> <span class="item-text">Inbox</span>
             </li>
           </div>
           <li class="blue-text expanded-item" id="add-task">
-            <i class="fa-solid fa-plus"></i> <span class="item-text">Add Task</span> <span id="num-of-"></span>
+            <i class="fa-solid fa-plus"></i> <span class="item-text">Add Task</span> <span id="num-of-tasks"></span>
           </li>
       </ul>
     </nav>
     <div class="main">
       <div class="overLay d-none" id="overLay"></div>
-      <div id="content">
+      <!-- <div id="content">
         <h2 class="title">Inbox</h2>
-        <div class="task">
+        <button id="delete-Inbox" class="btn-delete">Delete Project</button>
+       
+        <div class="task" id="task-1">
           <div class="circle"></div>
           <p class="task-desc">Take out the trash </p>
           <p class="task-date">4/6/22</p>
         </div>
-      </div>
+      </div> -->
     </div>
 
     <div id="task-input" class="d-none">
@@ -54,11 +56,11 @@
       <div class="task-footer">
         <div class="date-container">
           <label for="task-due-date">Due-date: </label>
-          <input type="date" id="task-due-date" value="2022-04-30" min="2022-04-30">
+          <input type="date" id="task-due-date">
         </div>
         <div class="project-container">
           <label for="project-name">Project Name:</label>
-          <input type="text" placeholder="inbox default">
+          <input type="text" placeholder="default: inbox" id="project-name">
         </div>
       </div>
     </div>
