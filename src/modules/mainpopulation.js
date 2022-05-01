@@ -13,11 +13,13 @@ function populateMain(project){
         title.classList.add('title');
         title.textContent = `${project.name}`;
         content.append(title);
-        let deleteButton = document.createElement('button');
-        deleteButton.setAttribute('id', `delete-${project.name}`);
-        deleteButton.classList.add('btn-delete');
-        deleteButton.textContent = "Delete Project";
-        content.append(deleteButton);
+        if(project.name !== 'Inbox'){
+            let deleteButton = document.createElement('button');
+            deleteButton.setAttribute('id', `delete-${project.name}`);
+            deleteButton.classList.add('btn-delete');
+            deleteButton.textContent = "Delete Project";
+            content.append(deleteButton);
+        }
     }
 
     //Check if populated main is correctly populated for the right project

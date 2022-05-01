@@ -92,17 +92,4 @@ function populateNavProjects(arr){
     })
 }
 
-// function addProjectEventListener(element){
-//     // const contentContainer = document.getElementById('content');
-//     // if(contentContainer == null || contentContainer.contains(target.name)){
-//     //     element.addEventListener('click', () => {populateMain(target)});
-//     // }else{
-//     //     element.addEventListener('click', function(){
-//     //         depopulateMain();
-//     //         populateMain(target);
-//     //     })
-//     // }
-//     element.addEv
-// }
-
 export{expandNav, pinExpanded, unPinExpanded, hoverPopUp, destroyPopUp, populateNavProjects};

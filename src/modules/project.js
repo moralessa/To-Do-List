@@ -20,8 +20,8 @@ function removeTaskFromProject(id, project, arr){
             ndx = index;
         }
     })
+    
     if(ndx == undefined){
-        console.log('somethings up');
         return;
     }
     arr[ndx].tasks = removeTask(id, arr[ndx].tasks);

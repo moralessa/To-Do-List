@@ -7,18 +7,35 @@ import {createNewTask, removeTask} from './modules/task.js';
 import {createNewProject, removeTaskFromProject} from './modules/project.js'
 import {populateMain} from './modules/mainpopulation.js'
 
-(function(){ // function to set min date of input to the current date
-    const date = new Date();
-    const dateInput = document.getElementById('task-due-date');
-    const v = date.toLocaleDateString('en-CA');
-    dateInput.value = v;
-})();
+
 //Array of tasks
 let tasksArr = [];
 //Array of projects
 let projectsArr = [];
 //taskCount for id purposes
 let taskCount = 0;
+
+
+
+(function(){ // IFFE to set min date of input to the current date and fill inbox with dummy data and add event 
+    //listener for inbox nav list items
+    const date = new Date();
+    const dateInput = document.getElementById('task-due-date');
+    const dateFormatted = date.toLocaleDateString('en-CA');
+    dateInput.value = dateFormatted;
+    let newTask = createNewTask(0, 'Take out the trash', dateFormatted, tasksArr);
+    let newProject = createNewProject('Inbox', projectsArr);
+    newProject.tasks.push(newTask);
+    populateMain(newProject);
+    const inboxNavSelection = document.getElementById('project-Inbox');
+    const inboxIconSelection = document.getElementById('inbox');
+    inboxIconSelection.addEventListener('click', () =>{
+        populateMain(newProject);
+    })
+    inboxNavSelection.addEventListener('click', () => {
+        populateMain(newProject);
+    })
+})();
 
 //Nav dom functionality
 const navButton2 = document.getElementById('bars-T')
@@ -54,6 +71,8 @@ const taskCreate = document.getElementById('task-create');
 taskCreate.addEventListener('click', taskAddition);
 
 
+//Inbox icon and nav selection event listener
+
 //Task Create button toggle functionality 
 const taskDescInput = document.getElementById('task-desc');
 taskDescInput.addEventListener('keypress', createButtonToggle)
@@ -83,9 +102,6 @@ function taskAddition(){
 
     //depopulate task card
     depopulateTaskInput();
-
-    console.log(tasksArr);
-    console.log(projectsArr);
 }
 
 //Project additon functionality
@@ -132,9 +148,7 @@ function checkIfMainIsPopulized(target){
 //functionality to remove task 
 function callRemoveTask(task, project){
     tasksArr = removeTask(task, tasksArr);
-    console.log(tasksArr);
     removeTaskFromProject(task, project, projectsArr);
-    console.log(projectsArr);
 }
 
 
