@@ -21,9 +21,11 @@ let taskCount = 0;
     //listener for inbox nav list items
     const date = new Date();
     const dateInput = document.getElementById('task-due-date');
-    const dateFormatted = date.toLocaleDateString('en-CA');
-    dateInput.value = dateFormatted;
-    let newTask = createNewTask(0, 'Take out the trash', dateFormatted, tasksArr);
+    const dateFormattedCA = date.toLocaleDateString('en-CA');
+    dateInput.value = dateFormattedCA;
+    dateInput.min = dateFormattedCA;
+    const dateFormattedUs = date.toLocaleDateString('en-US')
+    let newTask = createNewTask(0, 'Take out the trash', dateFormattedUs, tasksArr);
     let newProject = createNewProject('Inbox', projectsArr);
     newProject.tasks.push(newTask);
     populateMain(newProject);
@@ -75,8 +77,13 @@ taskCreate.addEventListener('click', taskAddition);
 
 //Task Create button toggle functionality 
 const taskDescInput = document.getElementById('task-desc');
-taskDescInput.addEventListener('keypress', createButtonToggle)
+taskDescInput.addEventListener('keyup', createButtonToggle);
 
+
+//Time Zone fix
+function toDate(isoDateString){
+    return new Date(`${isoDateString}T12:00:00`);
+}
 
 //Task Addition functionality
 function taskAddition(){
@@ -88,7 +95,7 @@ function taskAddition(){
     taskCount++;
     //Obtain task description, date, and project
     const description = taskDescInput.value;   
-    const date = new Date(document.getElementById('task-due-date').value);
+    const date = toDate(document.getElementById('task-due-date').value);
     const dateFormatted = date.toLocaleDateString('en-US');
     const projectName = document.getElementById('project-name').value;
 
