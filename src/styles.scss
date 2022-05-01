@@ -237,6 +237,18 @@ body{
         position: relative;
         margin-bottom: 1rem;
 
+        .cross-out {
+            position: absolute;
+            top: 50%;
+            width: 95%;
+            height: 1px;
+            background-color: black;
+        }
+
+        &.removed{
+            opacity: .7;
+        }
+
         &:hover{
             cursor: pointer;
         }

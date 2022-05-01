@@ -4,10 +4,10 @@ import 'bootstrap'
 import {pinExpanded, expandNav, unPinExpanded, hoverPopUp, destroyPopUp, populateNavProjects} from './modules/nav.js';
 import {populateTaskInput, depopulateTaskInput, createButtonToggle} from './modules/add.js';
 import {createNewTask, removeTask} from './modules/task.js';
-import {createNewProject} from './modules/project.js'
+import {createNewProject, removeTaskFromProject} from './modules/project.js'
 import {populateMain} from './modules/mainpopulation.js'
 
-(function(){
+(function(){ // function to set min date of input to the current date
     const date = new Date();
     const dateInput = document.getElementById('task-due-date');
     const v = date.toLocaleDateString('en-CA');
@@ -71,11 +71,11 @@ function taskAddition(){
     const description = taskDescInput.value;   
     const date = new Date(document.getElementById('task-due-date').value);
     const dateFormatted = date.toLocaleDateString('en-US');
-    const project = document.getElementById('project-name').value;
+    const projectName = document.getElementById('project-name').value;
 
     //Call Respective functions to create task and add an aditional project if necessary
     let newTask = createNewTask(taskCount, description, dateFormatted, tasksArr);
-    projectAddition(project, newTask);
+    projectAddition(projectName, newTask);
     setTimeout(() =>{
         taskDescInput.value = '';
         document.getElementById('project-name').value = '';
@@ -121,10 +121,21 @@ function projectAddition(name, task){
 //If so populate main so the user can see the newly added task
 function checkIfMainIsPopulized(target){
     let temp = document.querySelector('.title');
-    if(temp == null){
+    if(temp == null || temp.textContent !== target.name){
         return;
     }
     else if(temp.textContent === target.name){
         populateMain(target);
     }
 }
+
+//functionality to remove task 
+function callRemoveTask(task, project){
+    tasksArr = removeTask(task, tasksArr);
+    console.log(tasksArr);
+    removeTaskFromProject(task, project, projectsArr);
+    console.log(projectsArr);
+}
+
+
+export {callRemoveTask};

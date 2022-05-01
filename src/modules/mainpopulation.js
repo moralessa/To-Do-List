@@ -1,3 +1,7 @@
+import{removeTask} from './task.js';
+import{removeTaskFromProject} from './project.js';
+import {callRemoveTask} from '../index.js';
+
 function populateMain(project){
     let main = document.querySelector('.main');
     let temp = document.getElementById('content');
@@ -16,12 +20,19 @@ function populateMain(project){
         content.append(deleteButton);
     }
 
+    //Check if populated main is correctly populated for the right project
+    let titleElement = document.querySelector('.title');
+    if(titleElement.textContent !== project.name){
+        depopulateMain();
+        populateMain(project);
+    }
+
     project.tasks.forEach(task => {
-        populateSingleTask(task, content);
+        populateSingleTask(task, content, project);
     })
 }
 
-function populateSingleTask(task, parent){
+function populateSingleTask(task, parent, project){
     let temp = document.getElementById(`task-${task.id}`);
     if(parent.contains(temp)){
         return;
@@ -42,6 +53,10 @@ function populateSingleTask(task, parent){
     taskDate.textContent = `${task.date}`;
     taskContainer.append(taskDate);
     parent.append(taskContainer);
+    taskContainer.addEventListener('click', () => {
+        callRemoveTask(task.id, project);
+        removeTaskAnimation(taskContainer);;
+    })
 }
 
 function depopulateMain(){
@@ -49,5 +64,12 @@ function depopulateMain(){
     content.remove();
 }
 
+function removeTaskAnimation(parentContainer){
+    let crossOut = document.createElement('div');
+    parentContainer.classList.add('removed');
+    crossOut.classList.add('cross-out');
+    parentContainer.append(crossOut);
+}
 
-export {populateMain, depopulateMain};
+
+export {populateMain};

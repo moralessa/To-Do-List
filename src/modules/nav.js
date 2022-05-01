@@ -1,4 +1,4 @@
-import {populateMain, depopulateMain} from './mainpopulation.js';
+import {populateMain} from './mainpopulation.js';
 
 function expandNav(){
     const main = document.querySelector('.main');
@@ -77,31 +77,32 @@ function populateNavProjects(arr){
     const projectsContainer = document.getElementById('projects');
     arr.forEach(project => {;
         let temp = document.getElementById(`project-${project.name}`);
-        if(projectsContainer.contains(temp)){
-            return;
+        if(temp == null){
+            let listItem = document.createElement('li');
+            listItem.setAttribute('id', `project-${project.name}`);
+            listItem.classList.add('blue-text', 'expanded-item');
+            let text = document.createElement('span');
+            text.textContent = `${project.name}`;
+            listItem.append(text);
+            projectsContainer.append(listItem);
+            listItem.addEventListener('click', () =>{
+                populateMain(project);
+            })
         }
-
-        let listItem = document.createElement('li');
-        listItem.setAttribute('id', `project-${project.name}`);
-        listItem.classList.add('blue-text', 'expanded-item');
-        let text = document.createElement('span');
-        text.textContent = `${project.name}`;
-        listItem.append(text);
-        addProjectEventListener(project, listItem);
-        projectsContainer.append(listItem);
     })
 }
 
-function addProjectEventListener(target, element){
-    const contentContainer = document.getElementById('content');
-    if(contentContainer == null || contentContainer.contains(target.name)){
-        element.addEventListener('click', () => {populateMain(target)});
-    }else{
-        element.addEventListener('click', function(){
-            depopulateMain();
-            populateMain(target);
-        })
-    }
-}
+// function addProjectEventListener(element){
+//     // const contentContainer = document.getElementById('content');
+//     // if(contentContainer == null || contentContainer.contains(target.name)){
+//     //     element.addEventListener('click', () => {populateMain(target)});
+//     // }else{
+//     //     element.addEventListener('click', function(){
+//     //         depopulateMain();
+//     //         populateMain(target);
+//     //     })
+//     // }
+//     element.addEv
+// }
 
 export{expandNav, pinExpanded, unPinExpanded, hoverPopUp, destroyPopUp, populateNavProjects};
