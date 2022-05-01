@@ -13,11 +13,11 @@ let tasksArr = [];
 //Array of projects
 let projectsArr = [];
 //taskCount for id purposes
-let taskCount = 0;
+let taskCount = 2;
 
 
 
-(function(){ // IFFE to set min date of input to the current date and fill inbox with dummy data and add event 
+(function(){ // IIFE to set min date of input to the current date and fill inbox with dummy data and add event 
     //listener for inbox nav list items
     const date = new Date();
     const dateInput = document.getElementById('task-due-date');
@@ -25,9 +25,12 @@ let taskCount = 0;
     dateInput.value = dateFormattedCA;
     dateInput.min = dateFormattedCA;
     const dateFormattedUs = date.toLocaleDateString('en-US')
-    let newTask = createNewTask(0, 'Take out the trash', dateFormattedUs, tasksArr);
+    const tasksItems = ['Take out the trash', 'Feed the fishes', 'Use Suru'];
     let newProject = createNewProject('Inbox', projectsArr);
-    newProject.tasks.push(newTask);
+    for(let i = 0; i < tasksItems.length; i++){
+        let newTask = createNewTask(i, tasksItems[i], dateFormattedUs, tasksArr);
+        newProject.tasks.push(newTask);
+    }
     populateMain(newProject);
     const inboxNavSelection = document.getElementById('project-Inbox');
     const inboxIconSelection = document.getElementById('inbox');
@@ -51,12 +54,9 @@ unpin.addEventListener('click', unPinExpanded);
 
 //Nav link pop up dom functionality
 const inbox = document.getElementById('inbox');
-const calendar = document.getElementById('week');
 const add = document.getElementById('add');
 inbox.addEventListener('mouseenter', function(){hoverPopUp(inbox)});
 inbox.addEventListener('mouseleave', destroyPopUp);
-calendar.addEventListener('mouseenter', function(){hoverPopUp(calendar)});
-calendar.addEventListener('mouseleave', destroyPopUp);
 add.addEventListener('mouseenter', function(){hoverPopUp(add)});
 add.addEventListener('mouseleave', destroyPopUp);
 
