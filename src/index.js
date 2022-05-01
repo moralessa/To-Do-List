@@ -1,10 +1,10 @@
 import "./styles.scss"
 import '@fortawesome/fontawesome-free/js/all.js'
 import 'bootstrap'
-import {pinExpanded, expandNav, unPinExpanded, hoverPopUp, destroyPopUp, populateNavProjects} from './modules/nav.js';
+import {pinExpanded, expandNav, unPinExpanded, hoverPopUp, destroyPopUp, populateNavProjects, removeNavProject} from './modules/nav.js';
 import {populateTaskInput, depopulateTaskInput, createButtonToggle} from './modules/add.js';
 import {createNewTask, removeTask} from './modules/task.js';
-import {createNewProject, removeTaskFromProject} from './modules/project.js'
+import {createNewProject, removeProject, removeTaskFromProject} from './modules/project.js'
 import {populateMain} from './modules/mainpopulation.js'
 
 
@@ -158,5 +158,13 @@ function callRemoveTask(task, project){
     removeTaskFromProject(task, project, projectsArr);
 }
 
+//funcitonality to remove project
+function callRemoveProject(project){
+    projectsArr = removeProject(project, projectsArr);
+    console.log(projectsArr);
+    removeNavProject(project);
+    populateMain(projectsArr[0]);
+}
 
-export {callRemoveTask};
+
+export {callRemoveTask, callRemoveProject};

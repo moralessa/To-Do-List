@@ -1,6 +1,4 @@
-import{removeTask} from './task.js';
-import{removeTaskFromProject} from './project.js';
-import {callRemoveTask} from '../index.js';
+import {callRemoveTask, callRemoveProject} from '../index.js';
 
 function populateMain(project){
     let main = document.querySelector('.main');
@@ -19,6 +17,9 @@ function populateMain(project){
             deleteButton.classList.add('btn-delete');
             deleteButton.textContent = "Delete Project";
             content.append(deleteButton);
+            deleteButton.addEventListener('click', () =>{
+                callRemoveProject(project);
+            })
         }
     }
 

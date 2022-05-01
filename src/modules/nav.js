@@ -92,4 +92,9 @@ function populateNavProjects(arr){
     })
 }
 
-export{expandNav, pinExpanded, unPinExpanded, hoverPopUp, destroyPopUp, populateNavProjects};
+function removeNavProject(project){
+    const projectToRemove = document.getElementById(`project-${project.name}`);
+    projectToRemove.remove();
+}
+
+export{expandNav, pinExpanded, unPinExpanded, hoverPopUp, destroyPopUp, populateNavProjects, removeNavProject};

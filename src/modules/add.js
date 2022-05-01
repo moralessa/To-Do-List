@@ -19,7 +19,6 @@ function depopulateTaskInput(){
 }
 
 function createButtonToggle(){
-    console.log('I was called');
     const taskCreate = document.getElementById('task-create');
     const taskDescInput = document.getElementById('task-desc');
     if(taskDescInput.value == ''){

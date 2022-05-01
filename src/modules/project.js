@@ -20,11 +20,21 @@ function removeTaskFromProject(id, project, arr){
             ndx = index;
         }
     })
-    
+
     if(ndx == undefined){
         return;
     }
     arr[ndx].tasks = removeTask(id, arr[ndx].tasks);
 }
 
-export {Project, createNewProject, removeTaskFromProject};
+function removeProject(project, arr){
+    let ndx;
+    arr.forEach((tempProject, index) =>{
+        if(tempProject.name == project.name){
+            ndx = index;
+        }
+    })
+    return arr.filter(project => project.name !== arr[ndx].name);
+}
+
+export {Project, createNewProject, removeTaskFromProject, removeProject};
