@@ -8,14 +8,9 @@ import {populateTaskInput, depopulateTaskInput, createButtonToggle} from './modu
 import {createNewTask, removeTask} from './modules/task.js';
 import {createNewProject, removeProject, removeTaskFromProject} from './modules/project.js'
 import {populateMain} from './modules/mainpopulation.js'
-
-
-//Array of tasks
-let tasksArr = [];
-//Array of projects
-let projectsArr = [];
-//taskCount for id purposes
-let taskCount = 2;
+import { addTaskCountToLocale, addTaskToLocale, addProjectToLocale , getTaskCount,
+getProjectCount, getTasks, getProjects, addTaskToProjectLocale,
+removeProjectFromLocale, removeTaskFromLocale, removeTaskFromProjectLocale} from "./modules/localeStore";
 
 
 // Add logo with javascript **necessary for webpack functionality
@@ -31,30 +26,70 @@ faviconContainer.setAttribute('type', 'image/x-icon');
 faviconContainer.setAttribute('href', favicon);
 head.appendChild(faviconContainer);
 
+//Array of tasks
+let tasksArr = [];
+//Array of projects
+let projectsArr = [];
+//taskCount for id purposes
+let taskCount = 2;
+//projectCount for storage 
+let projectCount = 0;
 
-(function(){ // IIFE to set min date of input to the current date and fill inbox with dummy data and add event 
-    //listener for inbox nav list items
+//Check if locale storage was used previously
+if(getTaskCount()){
+    taskCount = Number(getTaskCount());
+    projectCount = Number(getProjectCount());
+    const previousTasks = getTasks();
+    const previousProjects = getProjects();
+    tasksArr = tasksArr.concat(previousTasks);
+    projectsArr = projectsArr.concat(previousProjects);
+    populateNavProjects(projectsArr);
+    populateMain(projectsArr[0]);
+    const inboxNavSelection = document.getElementById('project-Inbox');
+    const inboxIconSelection = document.getElementById('inbox');
+    inboxIconSelection.addEventListener('click', () =>{
+        populateMain(projectsArr[0]);
+    })
+    inboxNavSelection.addEventListener('click', () => {
+        populateMain(projectsArr[0]);
+    })
+
+}else{
+// IFEE to fill inbox with dummy data and add event listener for inbox nav list items if locale storage is empty
+    (function (){
+        const date = new Date();
+        const dateFormattedUs = date.toLocaleDateString('en-US')
+        const tasksItems = ['Take out the trash', 'Feed the fishes', 'Use Suru'];
+        let newProject = createNewProject('Inbox', projectsArr);
+        for(let i = 0; i < tasksItems.length; i++){
+            let newTask = createNewTask(i, tasksItems[i], dateFormattedUs, tasksArr);
+            newProject.tasks.push(newTask);
+            //Add task to locale storage
+            addTaskToLocale(newTask);
+        }
+        //Add inbox project to locale storage
+        addProjectToLocale(newProject, projectCount);
+        //Add task count to locale storage 
+        addTaskCountToLocale(taskCount);
+        populateMain(newProject);
+        const inboxNavSelection = document.getElementById('project-Inbox');
+        const inboxIconSelection = document.getElementById('inbox');
+        inboxIconSelection.addEventListener('click', () =>{
+            populateMain(newProject);
+        })
+        inboxNavSelection.addEventListener('click', () => {
+            populateMain(newProject);
+        })
+    })();
+}
+
+
+(function(){ // IIFE to set min date of input to the current date
     const date = new Date();
     const dateInput = document.getElementById('task-due-date');
     const dateFormattedCA = date.toLocaleDateString('en-CA');
     dateInput.value = dateFormattedCA;
     dateInput.min = dateFormattedCA;
-    const dateFormattedUs = date.toLocaleDateString('en-US')
-    const tasksItems = ['Take out the trash', 'Feed the fishes', 'Use Suru'];
-    let newProject = createNewProject('Inbox', projectsArr);
-    for(let i = 0; i < tasksItems.length; i++){
-        let newTask = createNewTask(i, tasksItems[i], dateFormattedUs, tasksArr);
-        newProject.tasks.push(newTask);
-    }
-    populateMain(newProject);
-    const inboxNavSelection = document.getElementById('project-Inbox');
-    const inboxIconSelection = document.getElementById('inbox');
-    inboxIconSelection.addEventListener('click', () =>{
-        populateMain(newProject);
-    })
-    inboxNavSelection.addEventListener('click', () => {
-        populateMain(newProject);
-    })
 })();
 
 //Nav dom functionality
@@ -108,6 +143,9 @@ function taskAddition(){
     
     //Increment task count for ID of task
     taskCount++;
+    //add task count to locale storage
+    addTaskCountToLocale(taskCount);
+
     //Obtain task description, date, and project
     const description = taskDescInput.value;   
     const date = toDate(document.getElementById('task-due-date').value);
@@ -116,6 +154,9 @@ function taskAddition(){
 
     //Call Respective functions to create task and add an aditional project if necessary
     let newTask = createNewTask(taskCount, description, dateFormatted, tasksArr);
+    //Add task to locale storage
+    addTaskToLocale(newTask);
+
     projectAddition(projectName, newTask);
     setTimeout(() =>{
         taskDescInput.value = '';
@@ -141,17 +182,21 @@ function projectAddition(name, task){
     })
     
     if(ndx == undefined){
+        //Increment projectCount
+        projectCount++;
         let newProject = createNewProject(name, projectsArr);
         newProject.tasks.push(task);
         populateNavProjects(projectsArr);
         checkIfMainIsPopulized(newProject);
+        //Add project to locale storage
+        addProjectToLocale(newProject, projectCount);
     }else{
         projectsArr[ndx].tasks.push(task);
         populateNavProjects(projectsArr);
         checkIfMainIsPopulized(projectsArr[ndx])
+        //Push task to project in locale storage
+        addTaskToProjectLocale(task, projectsArr[ndx]);
     }
-
-    
 }
 
 
@@ -171,6 +216,8 @@ function checkIfMainIsPopulized(target){
 function callRemoveTask(task, project){
     tasksArr = removeTask(task, tasksArr);
     removeTaskFromProject(task, project, projectsArr);
+    removeTaskFromProjectLocale(task, project);
+    removeTaskFromLocale(task);
 }
 
 //funcitonality to remove project
@@ -178,6 +225,7 @@ function callRemoveProject(project){
     projectsArr = removeProject(project, projectsArr);
     console.log(projectsArr);
     removeNavProject(project);
+    removeProjectFromLocale(project);
     populateMain(projectsArr[0]);
 }
 
