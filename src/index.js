@@ -20,7 +20,7 @@ let taskCount = 2;
 // const suruLogo = document.getElementById('suru-logo');
 // const myIcon = new Image();
 // myIcon.src = Icon;
-// suruLogo.prepend(myIcon);
+// suruLogo.prepend(myIcon)
 
 (function(){ // IIFE to set min date of input to the current date and fill inbox with dummy data and add event 
     //listener for inbox nav list items
