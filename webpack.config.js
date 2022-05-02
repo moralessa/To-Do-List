@@ -21,15 +21,6 @@ module.exports = {
             type: 'asset/resource',
           },
           {
-            test: /\.html$/,
-            include: path.resolve(__dirname, 'dist'), 
-            use: [
-                {
-                    loader: 'html-loader',
-                },
-            ],
-          },
-          {
             test: /\.(scss)$/,
             use: [{
               // inject CSS to page

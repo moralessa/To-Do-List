@@ -1,7 +1,8 @@
-import "./styles.scss"
-import '@fortawesome/fontawesome-free/js/all.js'
-import 'bootstrap'
-import Icon from './images/icons8-check-circle-100.png'
+import "./styles.scss";
+import '@fortawesome/fontawesome-free/js/all.js';
+import 'bootstrap';
+import Icon from './images/icons8-check-circle-100.png';
+import favicon from './images/favicon-16x16.png'
 import {pinExpanded, expandNav, unPinExpanded, hoverPopUp, destroyPopUp, populateNavProjects, removeNavProject} from './modules/nav.js';
 import {populateTaskInput, depopulateTaskInput, createButtonToggle} from './modules/add.js';
 import {createNewTask, removeTask} from './modules/task.js';
@@ -15,6 +16,20 @@ let tasksArr = [];
 let projectsArr = [];
 //taskCount for id purposes
 let taskCount = 2;
+
+
+// Add logo with javascript **necessary for webpack functionality
+const suruLogo = document.getElementById('suru-logo');
+const myIcon = new Image();
+myIcon.src = Icon;
+suruLogo.prepend(myIcon);
+//Favicon 
+let head = document.querySelector('head');
+let faviconContainer = document.createElement('link');
+faviconContainer.setAttribute('rel', 'icon');
+faviconContainer.setAttribute('type', 'image/x-icon');
+faviconContainer.setAttribute('href', favicon);
+head.appendChild(faviconContainer);
 
 
 (function(){ // IIFE to set min date of input to the current date and fill inbox with dummy data and add event 
