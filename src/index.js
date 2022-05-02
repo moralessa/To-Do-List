@@ -1,6 +1,7 @@
 import "./styles.scss"
 import '@fortawesome/fontawesome-free/js/all.js'
 import 'bootstrap'
+import Icon from './images/icons8-check-circle-100.png'
 import {pinExpanded, expandNav, unPinExpanded, hoverPopUp, destroyPopUp, populateNavProjects, removeNavProject} from './modules/nav.js';
 import {populateTaskInput, depopulateTaskInput, createButtonToggle} from './modules/add.js';
 import {createNewTask, removeTask} from './modules/task.js';
