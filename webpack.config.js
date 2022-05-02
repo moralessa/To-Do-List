@@ -22,7 +22,7 @@ module.exports = {
           },
           {
             test: /\.html$/,
-            include: path.resolve(__dirname, 'public'), // Your path may be different.
+            include: path.resolve(__dirname, 'dist'), 
             use: [
                 {
                     loader: 'html-loader',
