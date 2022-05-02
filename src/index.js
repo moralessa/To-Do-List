@@ -16,6 +16,7 @@ let projectsArr = [];
 //taskCount for id purposes
 let taskCount = 2;
 
+// Add logo with javascript **necessary for webpack functionality
 const suruLogo = document.getElementById('suru-logo');
 const myIcon = new Image();
 myIcon.src = Icon;
