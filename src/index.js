@@ -16,7 +16,8 @@ let projectsArr = [];
 //taskCount for id purposes
 let taskCount = 2;
 
-
+const suruLogo = document.getElementById('suru-logo');
+suruLogo.src = Icon;
 
 (function(){ // IIFE to set min date of input to the current date and fill inbox with dummy data and add event 
     //listener for inbox nav list items
